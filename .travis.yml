@@ -1,0 +1,11 @@
+language: node_js
+node_js: node
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: Nd96bYhzotTMUJy4YPE1zvVujPwTP2uxIMP8EsFKrtPBXjuMXvob5BhneoCXqyxXj23sbHkF+HLBqskEoE8eESMnhLbtzHRb+bjB/M81kLFGHKmmBb1jXBRRr/3ob4u3PFVLUZoQBzlkYgmjI+7GN7ETmJ0p6XtxG8959IRiHWkpWnJRSNIparGPCeHKDJokgw7cuWuy/pv5+ltmJhjBuNLPJYtlifoe/pjgey35UBnCgRiqOav0i6EXiwLLvWqY/BVEQRr8WgngCe7S2XhRTiaix0yCLMBNA+BXQqyM6sv5G26BX7dm7Zdaovr8I0+KzhWqXtr+MnUjLC4kKC092Pjt1PHJPmqBTa2E+dqPx47FZzto9mzAlYhLhUt2BNosvK+KJ871Q475NJ/SSaZQulrdwOl9qRG+0OyXfzIdi4Lmq4TIeo/FWJ6+BhPN+apvdNb2iha1f876E1VcJTUfTAhNiGHpy4zzPwjwRJp+uIf+Ir25Du5zeSxiAXn8kQxgmlcFTzeMbp1Yxn/IwzUEet6HHuogvfoF6bIDQxcVe612ALk+nhyGg4gC6NUiuBLlV7TURN4EIFdek4247FW4kZO0WaKQo4CKK4efseiNO3eXRNQAjkzy6m/T1aUo3ExzuEXkUJIxai0BCnbc5G4nCrRsRrw0m1amgT9JXKhe050=
+  app: whispering-hamlet-10844
+  on:
+    repo: LsK101/mixer-hub-api
