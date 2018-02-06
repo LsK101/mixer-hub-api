@@ -4,24 +4,35 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 const {router: recipesRouter} = require('./recipes');
+const {router: usersRouter} = require('./users');
+const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
 
+// CORS
 app.use(
 	cors({
  		origin: CLIENT_ORIGIN
  	})
 );
 
-app.use('/api/recipes', recipesRouter);
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
-app.get('/api/*', (req, res) => {
-	res.json({ok: true});
+const jwtAuth = passport.authenticate('jwt', {session: false});
+
+app.get('*', (req, res) => {
+	return res.status(404).json({message: "there's nothing here"});
 });
+
+app.use('/api/auth', authRouter);
+app.use('/api/recipes', recipesRouter);
+app.use('/api/users', usersRouter);
 
 // START/STOP SERVER HANDLING
 let server;

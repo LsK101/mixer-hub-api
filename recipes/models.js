@@ -6,7 +6,6 @@ const RecipeSchema = mongoose.Schema({
 	recipeName: {
 		type: String,
 		required: true,
-		unique: true
 	},
 	ingredients: {
 		type: Number,
