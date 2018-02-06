@@ -26,13 +26,13 @@ passport.use(jwtStrategy);
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-app.get('*', (req, res) => {
-	return res.status(200).json({message: "there's nothing here"});
-});
-
 app.use('/api/auth', authRouter);
 app.use('/api/recipes', recipesRouter);
 app.use('/api/users', usersRouter);
+
+app.get('*', (req, res) => {
+	return res.status(200).json({message: "there's nothing here"});
+});
 
 // START/STOP SERVER HANDLING
 let server;
