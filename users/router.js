@@ -97,7 +97,7 @@ router.post('/', jsonParser, (req,res) => {
 			return User.create({
 				username,
 				password: hash,
-				firstName
+				"firstName": firstName.toLowerCase().charAt(0).toUpperCase() + firstName.slice(1)
 			});
 		})
 		.then(user => {
