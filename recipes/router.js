@@ -31,12 +31,12 @@ router.post('/add', jsonParser, (req,res) => {
 	let partsString = '';
 	for (let i = 0; i < ingredients; i++) {
 		if (parts[i] === 1) {
-			partsString = 'Part';
+			partsString = 'part';
 		}
 		else {
-			partsString = 'Parts';
+			partsString = 'parts';
 		}
-		let ingredientSingle = `${parts[i]} ${partsString} ${ingredientsList[i]} (${ingredientABV[i]}% ABV)`;
+		let ingredientSingle = `${parts[i]} ${partsString}: ${ingredientsList[i]} (${ingredientABV[i]}% ABV)`;
 		ingredientsArray.push(ingredientSingle);
 	}
 	return Recipe.create({
