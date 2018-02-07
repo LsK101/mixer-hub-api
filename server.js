@@ -27,7 +27,7 @@ passport.use(jwtStrategy);
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
 app.use('/api/auth', authRouter);
-app.use('/api/recipes', recipesRouter);
+app.use('/api/recipes', jwtAuth, recipesRouter);
 app.use('/api/users', usersRouter);
 
 app.get('*', (req, res) => {
