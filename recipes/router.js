@@ -49,7 +49,7 @@ router.post('/add', jsonParser, (req,res) => {
 		"parts": parts,
 		"totalABV": totalABV,
 		"recipeIngredientsStringArray": ingredientsArray,
-		"userRatings": {}
+		"userRatings": []
 	})
 	.then(() => {
 		return res.status(200).json({message: "Recipe Created!"});
@@ -63,12 +63,31 @@ router.post('/rate', jsonParser, (req,res) => {
 	let username = req.body.username;
 	return Recipe.update(
 		{_id: recipeID},
-		userRatings[username] = rating
+		{
+			$pull: {
+				userRatings: {
+					username: username
+				}
+			}
+		}
 	)
+	.then(() => {
+		return Recipe.update(
+		{_id: recipeID},
+		{
+			$push: {
+				userRatings: {
+					username: username,
+					rating: rating
+				}
+			}
+		}
+	)
+	})
 	.then(() => {
 		return res.status(200).json({message: `recipe rated`});
 	})
-	.catch(err => res.status(500).json({message: 'Internal server error'}));
+	.catch(err => res.status(500).json({message: err}));
 });
 
 module.exports = {router};
