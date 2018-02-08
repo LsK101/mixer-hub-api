@@ -50,7 +50,8 @@ RecipeSchema.methods.apiRepr = function() {
 		recipeName: this.recipeName,
 		recipeCreator: this.recipeCreator,
 		totalABV: this.totalABV,
-		ingredients: this.recipeIngredientsStringArray
+		ingredients: this.recipeIngredientsStringArray,
+		averageUserRating: this.averageUserRating
 	};
 };
 
