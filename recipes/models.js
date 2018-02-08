@@ -46,7 +46,7 @@ const RecipeSchema = mongoose.Schema({
 
 RecipeSchema.methods.apiRepr = function() {
 	return {
-		id: this._id.$oid,
+		id: this._id,
 		recipeName: this.recipeName,
 		recipeCreator: this.recipeCreator,
 		totalABV: this.totalABV,
