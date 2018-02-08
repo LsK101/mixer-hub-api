@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+Mixed = mongoose.Schema.Types.Mixed;
+
 const RecipeSchema = mongoose.Schema({
 	recipeName: {
 		type: String,
@@ -35,7 +37,7 @@ const RecipeSchema = mongoose.Schema({
 		type: Number
 	},
 	userRatings: {
-		type: [Schema.Types.Mixed]
+		type: Mixed
 	}
 });
 
