@@ -49,7 +49,7 @@ router.post('/add', jsonParser, (req,res) => {
 		"parts": parts,
 		"totalABV": totalABV,
 		"recipeIngredientsStringArray": ingredientsArray,
-		"userRatings": []
+		"userRatings": {}
 	})
 	.then(() => {
 		return res.status(200).json({message: "Recipe Created!"});

@@ -35,7 +35,7 @@ const RecipeSchema = mongoose.Schema({
 		type: Number
 	},
 	userRatings: {
-		type: Array
+		type: [Schema.Types.Mixed]
 	}
 });
 
