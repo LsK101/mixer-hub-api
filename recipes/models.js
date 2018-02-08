@@ -7,6 +7,10 @@ const RecipeSchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	recipeCreator: {
+		type: String,
+		required: true
+	},
 	ingredients: {
 		type: Number,
 		required: true,
@@ -26,12 +30,25 @@ const RecipeSchema = mongoose.Schema({
 	},
 	recipeIngredientsStringArray: {
 		type: Array
+	},
+	averageUserRating: {
+		type: Number
+	},
+	userRatings: {
+		user: {
+			type: String
+		},
+		rating: {
+			type: Number
+		}
 	}
 });
 
 RecipeSchema.methods.apiRepr = function() {
 	return {
+		id: this._id.$oid,
 		recipeName: this.recipeName,
+		recipeCreator: this.recipeCreator,
 		totalABV: this.totalABV,
 		ingredients: this.recipeIngredientsStringArray
 	};

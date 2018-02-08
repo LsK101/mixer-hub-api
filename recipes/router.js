@@ -22,6 +22,7 @@ router.get('/', jsonParser, (req,res) => {
 //ADD RECIPE TO DB
 router.post('/add', jsonParser, (req,res) => {
 	let recipeName = req.body.recipeName;
+	let recipeCreator = req.body.recipeCreator;
 	let ingredients = req.body.ingredients;
 	let ingredientsList = req.body.ingredientsList;
 	let ingredientABV = req.body.ingredientABV;
@@ -41,6 +42,7 @@ router.post('/add', jsonParser, (req,res) => {
 	}
 	return Recipe.create({
 		"recipeName": recipeName,
+		"recipeCreator": recipeCreator,
 		"ingredients": ingredients,
 		"ingredientsList": ingredientsList,
 		"ingredientABV": ingredientABV,
