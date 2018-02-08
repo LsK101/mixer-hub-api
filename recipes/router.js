@@ -62,14 +62,7 @@ router.post('/rate', jsonParser, (req,res) => {
 	let username = req.body.username;
 	return Recipe.update(
 		{_id: recipeID},
-			{
-				$addToSet: {
-					userRatings: {
-						'user': username,
-						'rating': rating
-					}
-				}
-			}
+		userRatings[username] = rating
 	)
 	.then(() => {
 		return res.status(200).json({message: `recipe rated`});
