@@ -56,4 +56,25 @@ router.post('/add', jsonParser, (req,res) => {
 	.catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+router.post('/rate', jsonParser, (req,res) => {
+	let recipeID = req.body.id;
+	let rating = req.body.rating;
+	let username = req.body.username;
+	return Recipe.update(
+		{_id: recipeID},
+			{
+				$addToSet: {
+					userRatings: {
+						'user': username,
+						'rating': rating
+					}
+				}
+			}
+	)
+	.then(() => {
+		return res.status(200).json({message: `recipe rated`});
+	})
+	.catch(err => res.status(500).json({message: 'Internal server error'}));
+});
+
 module.exports = {router};
