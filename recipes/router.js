@@ -49,7 +49,6 @@ router.post('/add', jsonParser, (req,res) => {
 		"parts": parts,
 		"totalABV": totalABV,
 		"recipeIngredientsStringArray": ingredientsArray,
-		"averageUserRating": null,
 		"userRatings": []
 	})
 	.then(() => {
@@ -84,17 +83,7 @@ router.post('/rate', jsonParser, (req,res) => {
 			}
 		}
 	)
-	})/*
-	.then(() => {
-	return Recipe.update(
-		{_id: recipeID},
-		{
-			$addFields: {
-				averageUserRating: {$avg: "$userRatings.rating"}
-			}
-		}
-	)
-	})*/
+	})
 	.then(() => {
 		return res.status(200).json({message: `recipe rated`});
 	})
