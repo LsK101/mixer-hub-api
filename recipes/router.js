@@ -56,7 +56,10 @@ router.post('/add', jsonParser, (req,res) => {
 	.then(() => {
 		return res.status(200).json({message: "Recipe Created!"});
 	})
-	.catch(err => res.status(500).json({message: 'Internal server error'}));
+	.catch((err) => {
+		console.log(err);
+		res.status(500).json({message: 'Internal server error'});
+	});
 });
 
 //RATE RECIPES
@@ -144,8 +147,7 @@ router.post('/edit', jsonParser, (req,res) => {
 			"ingredientABV": ingredientABV,
 			"parts": parts,
 			"totalABV": totalABV,
-			"recipeIngredientsStringArray": ingredientsArray,
-			"userRatings": []
+			"recipeIngredientsStringArray": ingredientsArray
 		}
 	)
 	.then(() => {
