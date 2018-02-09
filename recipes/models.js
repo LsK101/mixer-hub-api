@@ -15,6 +15,9 @@ const RecipeSchema = mongoose.Schema({
 		type: Number,
 		required: true,
 	},
+	visibility: {
+		type: Array
+	},
 	ingredientsList: {
 		type: Array
 	},
@@ -40,10 +43,15 @@ RecipeSchema.methods.apiRepr = function() {
 	return {
 		id: this._id,
 		recipeName: this.recipeName,
+		ingredients: this.ingredients,
+		ingredientsList: this.ingredientsList,
+		ingredientABV: this.ingredientABV,
+		parts: this.parts,
 		recipeCreator: this.recipeCreator,
+		visibility: this.visibility,
 		totalABV: this.totalABV,
-		ingredients: this.recipeIngredientsStringArray,
-		userRatings: this.userRatings
+		ingredientsString: this.recipeIngredientsStringArray,
+		userRatings: this.userRatings,
 	};
 };
 

@@ -24,6 +24,7 @@ router.post('/add', jsonParser, (req,res) => {
 	let recipeName = req.body.recipeName;
 	let recipeCreator = req.body.recipeCreator;
 	let ingredients = req.body.ingredients;
+	let visibility = req.body.visibility;
 	let ingredientsList = req.body.ingredientsList;
 	let ingredientABV = req.body.ingredientABV;
 	let parts = req.body.parts;
@@ -44,6 +45,7 @@ router.post('/add', jsonParser, (req,res) => {
 		"recipeName": recipeName,
 		"recipeCreator": recipeCreator,
 		"ingredients": ingredients,
+		"visibility": visibility,
 		"ingredientsList": ingredientsList,
 		"ingredientABV": ingredientABV,
 		"parts": parts,
@@ -106,6 +108,50 @@ router.post('/delete', jsonParser, (req,res) => {
 			return res.status(200).json({message: 'recipe deleted'})
 		})
 		.catch(err => alert('this isn\'t your recipe!'));
-})
+});
+
+//EDIT RECIPE ON DB
+router.post('/edit', jsonParser, (req,res) => {
+	let recipeID = req.body.id;
+	let recipeName = req.body.recipeName;
+	let recipeCreator = req.body.recipeCreator;
+	let ingredients = req.body.ingredients;
+	let visibility = req.body.visibility;
+	let ingredientsList = req.body.ingredientsList;
+	let ingredientABV = req.body.ingredientABV;
+	let parts = req.body.parts;
+	let totalABV = req.body.totalABV;
+	let ingredientsArray = [];
+	let partsString = '';
+	for (let i = 0; i < ingredients; i++) {
+		if (parts[i] === 1) {
+			partsString = 'part';
+		}
+		else {
+			partsString = 'parts';
+		}
+		let ingredientSingle = `${parts[i]} ${partsString}: ${ingredientsList[i]} (${ingredientABV[i]}% ABV)`;
+		ingredientsArray.push(ingredientSingle);
+	}
+	return Recipe.update(
+		{_id: recipeID},
+		{
+			"recipeName": recipeName,
+			"recipeCreator": recipeCreator,
+			"ingredients": ingredients,
+			"visibility": visibility,
+			"ingredientsList": ingredientsList,
+			"ingredientABV": ingredientABV,
+			"parts": parts,
+			"totalABV": totalABV,
+			"recipeIngredientsStringArray": ingredientsArray,
+			"userRatings": []
+		}
+	)
+	.then(() => {
+		return res.status(200).json({message: "Recipe Edited!"});
+	})
+	.catch(err => res.status(500).json({message: 'Internal server error'}));
+});
 
 module.exports = {router};
