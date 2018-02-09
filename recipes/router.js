@@ -7,7 +7,7 @@ const router = express.Router();
 
 const jsonParser = bodyParser.json();
 
-//FETCHES RECIPE LIST FROM DB
+//FETCHES FULL RECIPE LIST FROM DB
 router.get('/', jsonParser, (req,res) => {
 	return Recipe.find()
 		.then(recipes => {
@@ -57,6 +57,7 @@ router.post('/add', jsonParser, (req,res) => {
 	.catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+//RATE RECIPES
 router.post('/rate', jsonParser, (req,res) => {
 	let recipeID = req.body.id;
 	let rating = req.body.rating;
@@ -85,12 +86,26 @@ router.post('/rate', jsonParser, (req,res) => {
 	)
 	})
 	.then(() => {
-		return res.status(200).json({message: `recipe rated`});
+		return res.status(200).json({message: 'recipe rated'});
 	})
 	.catch(err => {
 		console.log(err);
 		return res.status(500).json({message: 'Internal server error'})
 	});
 });
+
+//DELETE RECIPES FROM DB
+router.post('/delete', jsonParser, (req,res) => {
+	let recipeID = req.body.id;
+	let username = req.body.username;
+	return Recipe.remove(
+		{
+			_id: recipeID, recipeCreator: username
+		})
+		.then(() => {
+			return res.status(200).json({message: 'recipe deleted'})
+		})
+		.catch(err => alert('this isn\'t your recipe!'));
+})
 
 module.exports = {router};
