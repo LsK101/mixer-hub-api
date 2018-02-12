@@ -78,6 +78,9 @@ router.post('/rate', jsonParser, (req,res) => {
 		}
 	)
 	.then(() => {
+	if (rating === null) {
+		return;
+	}
 	return Recipe.update(
 		{_id: recipeID},
 		{
