@@ -7,6 +7,13 @@ const router = express.Router();
 
 const jsonParser = bodyParser.json();
 
+const passport = require('passport');
+const {router: authRouter, localStrategy, jwtStrategy} = require('../auth');
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+const jwtAuth = passport.authenticate('jwt', {session: false});
+
+//REGISTER NEW USER
 router.post('/', jsonParser, (req,res) => {
 	const requiredFields = ['username','password','firstName'];
 	const missingField = requiredFields.find(field => !(field in req.body));
@@ -112,6 +119,46 @@ router.post('/', jsonParser, (req,res) => {
 				message: 'Internal server error'
 			});
 		});
+});
+
+//ADD RECIPE RATING TO USER
+router.post('/addrating', jwtAuth, jsonParser, (req,res) => {
+	let recipeID = req.body.id;
+	let rating = req.body.rating;
+	let updateUser = req.body.username;
+	return User.update(
+		{username: updateUser},
+		{
+			$pull: {
+				recipeRatings: {
+					recipeID: recipeID
+				}
+			}
+		}
+	)
+	.then(() => {
+		if (rating === null) {
+			return;
+		}
+		return User.update(
+			{username: updateUser},
+			{
+				$push: {
+					recipeRatings: {
+						recipeID: recipeID,
+						rating: rating
+					}
+				}
+			}
+		)
+	})
+	.then(() => {
+		return res.status(200);
+	})
+	.catch(err => {
+		console.log(err);
+		return res.status(500).json({message: 'Internal server error'});
+	});
 });
 
 module.exports = {router};
