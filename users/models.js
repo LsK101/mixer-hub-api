@@ -16,17 +16,13 @@ const UserSchema = mongoose.Schema({
 	firstName: {
 		type: String,
 		default: ''
-	},
-	recipeRatings: {
-		type: Array
 	}
 });
 
 UserSchema.methods.apiRepr = function() {
 	return {
 		username: this.username || '',
-		firstName: this.firstName || '',
-		recipeRatings: this.recipeRatings
+		firstName: this.firstName || ''
 	};
 };
 

@@ -121,44 +121,4 @@ router.post('/', jsonParser, (req,res) => {
 		});
 });
 
-//ADD RECIPE RATING TO USER
-router.post('/addrating', jwtAuth, jsonParser, (req,res) => {
-	let recipeID = req.body.id;
-	let rating = req.body.rating;
-	let updateUser = req.body.username;
-	return User.update(
-		{username: updateUser},
-		{
-			$pull: {
-				recipeRatings: {
-					recipeID: recipeID
-				}
-			}
-		}
-	)
-	.then(() => {
-		if (rating === null) {
-			return;
-		}
-		return User.update(
-			{username: updateUser},
-			{
-				$push: {
-					recipeRatings: {
-						recipeID: recipeID,
-						rating: rating
-					}
-				}
-			}
-		)
-	})
-	.then(() => {
-		return res.status(200);
-	})
-	.catch(err => {
-		console.log(err);
-		return res.status(500).json({message: 'Internal server error'});
-	});
-});
-
 module.exports = {router};
