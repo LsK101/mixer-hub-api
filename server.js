@@ -9,6 +9,7 @@ const passport = require('passport');
 const {router: recipesRouter} = require('./recipes');
 const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
+const {router: recipesNewRouter} = require('./recipesnew');
 
 mongoose.Promise = global.Promise;
 
@@ -29,6 +30,7 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 app.use('/api/auth', authRouter);
 app.use('/api/recipes', recipesRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/newrecipes', recipesNewRouter);
 
 app.get('*', (req, res) => {
 	return res.status(200).json({message: "there's nothing here"});
