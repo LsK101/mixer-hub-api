@@ -23,18 +23,12 @@ router.get('/', jsonParser, (req,res) => {
 router.post('/add', jsonParser, (req,res) => {
 	let recipeName = req.body.recipeName;
 	let username = req.body.username;
-	let ingredientsCount = req.body.ingredientsCount;
-	let ingredientsArray = req.body.ingredientsArray;
-	let ingredientABV = req.body.ingredientABV;
-	let partsArray = req.body.partsArray;
+	let ingredients = req.body.ingredients;
 	let totalABV = req.body.totalABV;
 	return RecipeNew.create({
 		"recipeName": recipeName,
 		"username": username,
 		"ingredients": ingredients,
-		"ingredientsArray": ingredientsArray,
-		"ingredientABV": ingredientABV,
-		"partsArray": partsArray,
 		"totalABV": totalABV,
 		"ratings": []
 	})
@@ -107,9 +101,6 @@ router.post('/edit', jsonParser, (req,res) => {
 	let recipeName = req.body.recipeName;
 	let username = req.body.username;
 	let ingredients = req.body.ingredients;
-	let ingredientsArray = req.body.ingredientsArray;
-	let ingredientABV = req.body.ingredientABV;
-	let parts = req.body.parts;
 	let totalABV = req.body.totalABV;
 	return RecipeNew.update(
 		{_id: recipeID},
@@ -117,9 +108,6 @@ router.post('/edit', jsonParser, (req,res) => {
 			"recipeName": recipeName,
 			"username": username,
 			"ingredients": ingredients,
-			"ingredientsArray": ingredientsArray,
-			"ingredientABV": ingredientABV,
-			"parts": parts,
 			"totalABV": totalABV,
 		}
 	)
