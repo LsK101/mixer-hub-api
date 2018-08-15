@@ -1,5 +1,7 @@
 const express = require('express');
+const passport = require('passport');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 const {RecipeNew} = require('./models');
 
@@ -19,8 +21,10 @@ router.get('/', jsonParser, (req,res) => {
 		});
 });
 
+const jwtAuth = passport.authenticate('jwt', {session: false});
+
 //ADD RECIPE TO DB
-router.post('/add', jsonParser, (req,res) => {
+router.post('/add', jwtAuth, jsonParser, (req,res) => {
 	let recipeName = req.body.recipeName;
 	let username = req.body.username;
 	let ingredients = req.body.ingredients;
@@ -42,7 +46,7 @@ router.post('/add', jsonParser, (req,res) => {
 });
 
 //RATE RECIPES
-router.post('/rate', jsonParser, (req,res) => {
+router.post('/rate', jwtAuth, jsonParser, (req,res) => {
 	let recipeID = req.body.id;
 	let rating = req.body.rating;
 	let username = req.body.username;
@@ -82,7 +86,7 @@ router.post('/rate', jsonParser, (req,res) => {
 });
 
 //DELETE RECIPES FROM DB
-router.post('/delete', jsonParser, (req,res) => {
+router.post('/delete', jwtAuth, jsonParser, (req,res) => {
 	let recipeID = req.body.id;
 	let username = req.body.username;
 	return RecipeNew.remove(
@@ -96,7 +100,7 @@ router.post('/delete', jsonParser, (req,res) => {
 });
 
 //EDIT RECIPE ON DB
-router.post('/edit', jsonParser, (req,res) => {
+router.post('/edit', jwtAuth, jsonParser, (req,res) => {
 	let recipeID = req.body.id;
 	let recipeName = req.body.recipeName;
 	let username = req.body.username;
