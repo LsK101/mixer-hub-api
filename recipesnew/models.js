@@ -5,14 +5,19 @@ mongoose.Promise = global.Promise;
 const RecipeNewSchema = mongoose.Schema({
 	recipeName: {
 		type: String,
-		required: true,
+		required: true
 	},
 	username: {
 		type: String,
 		required: true
 	},
 	ingredients: {
-		type: Array
+		type: Array,
+		required: true
+	},
+	simpleMode: {
+		type: Boolean,
+		required: true
 	},
 	totalABV: {
 		type: Number,
