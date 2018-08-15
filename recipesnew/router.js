@@ -29,11 +29,13 @@ router.post('/add', jwtAuth, jsonParser, (req,res) => {
 	let username = req.body.username;
 	let ingredients = req.body.ingredients;
 	let totalABV = req.body.totalABV;
+	let simpleMode = req.body.simpleMode;
 	return RecipeNew.create({
 		"recipeName": recipeName,
 		"username": username,
 		"ingredients": ingredients,
 		"totalABV": totalABV,
+		"simpleMode": simpleMode,
 		"ratings": []
 	})
 	.then(() => {

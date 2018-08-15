@@ -15,12 +15,12 @@ const RecipeNewSchema = mongoose.Schema({
 		type: Array,
 		required: true
 	},
-	simpleMode: {
-		type: Boolean,
-		required: true
-	},
 	totalABV: {
 		type: Number,
+		required: true
+	},
+	simpleMode: {
+		type: Boolean,
 		required: true
 	},
 	ratings: {
