@@ -33,7 +33,7 @@ RecipeNewSchema.methods.apiRepr = function() {
 		id: this._id,
 		recipeName: this.recipeName,
 		username: this.username,
-		ingredients: this.ingredientsCount,
+		ingredients: this.ingredients,
 		totalABV: this.totalABV,
 		ratings: this.ratings
 	};
