@@ -35,7 +35,8 @@ RecipeNewSchema.methods.apiRepr = function() {
 		username: this.username,
 		ingredients: this.ingredients,
 		totalABV: this.totalABV,
-		ratings: this.ratings
+		ratings: this.ratings,
+		simpleMode: this.simpleMode
 	};
 };
 
